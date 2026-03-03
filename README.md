@@ -2,23 +2,6 @@
 
 A Terraform module that provisions a production-ready Amazon EKS cluster with VPC networking, VPC endpoints, and deploys a containerised application onto the cluster.
 
-## Architecture
-
-```
-terraform-aws-eks-app/
-├── modules/
-│   ├── vpc/          # VPC, subnets, NAT gateway, subnet tags
-│   ├── eks/          # EKS cluster, managed node group, cluster auth
-│   ├── endpoints/    # VPC endpoints (ECR, S3, CloudWatch Logs, STS)
-│   └── app/          # Kubernetes namespace, deployment, and service
-├── examples/
-│   └── complete/     # Full working example
-├── main.tf
-├── variables.tf
-├── outputs.tf
-├── versions.tf
-└── providers.tf
-```
 
 ## Features
 
@@ -28,11 +11,16 @@ terraform-aws-eks-app/
 - **Kubernetes Deployment** with rolling update strategy, liveness/readiness probes, and resource requests
 - **Kubernetes Service** with AWS NLB annotations for internet-facing load balancing
 
+## Prerequisites
+
+- Terraform >= 1.0
+- AWS CLI configured with credentials that have permissions to create EKS, VPC, IAM, and EC2 resources
+
 ## Usage
 
 ```hcl
 module "eks_app" {
-  source  = "tempestyash123456/eks-app/aws"
+  source  = "Tempestyash123456/eks-app/aws"
   version = "~> 1.0"
 
   cluster_name       = "my-cluster"
@@ -46,7 +34,7 @@ module "eks_app" {
 
 ```hcl
 module "eks_app" {
-  source  = "tempestyash123456/eks-app/aws"
+  source  = "Tempestyash123456/eks-app/aws"
   version = "~> 1.0"
 
   # Required
@@ -73,61 +61,6 @@ module "eks_app" {
   env              = "prod"
 }
 ```
-
-## Prerequisites
-
-- Terraform >= 1.0
-- AWS CLI configured with credentials that have permissions to create EKS, VPC, IAM, and EC2 resources
-
-## Deploying
-
-```bash
-# 1. Copy and edit the variables file
-cp terraform.tfvars.example terraform.tfvars
-
-# 2. Initialise providers and modules
-terraform init
-
-# 3. Preview changes
-terraform plan -out=tfplan
-
-# 4. Apply
-terraform apply tfplan
-```
-
-> **Note:** The initial apply takes approximately 15–20 minutes due to EKS cluster creation and the built-in stabilisation sleep timers.
-
-## Destroying
-
-```bash
-terraform destroy -auto-approve
-```
-
-## Requirements
-
-| Name | Version |
-|------|---------|
-| terraform | >= 1.0 |
-| aws | >= 6.0 |
-| kubernetes | >= 3.0 |
-| time | >= 0.13 |
-| null | >= 3.0 |
-
-## Providers
-
-| Name | Version |
-|------|---------|
-| aws | >= 6.0 |
-| kubernetes | >= 3.0 |
-
-## Modules
-
-| Name | Source | Description |
-|------|--------|-------------|
-| vpc | ./modules/vpc | VPC and subnet provisioning |
-| eks | ./modules/eks | EKS cluster and node group |
-| endpoints | ./modules/endpoints | VPC endpoints for AWS services |
-| app | ./modules/app | Kubernetes deployment and service |
 
 ## Inputs
 
@@ -163,10 +96,3 @@ terraform destroy -auto-approve
 | `check_service_command` | kubectl command to inspect the service |
 | `port_forward_command` | kubectl command for local port-forwarding |
 
-## Publishing to HCP Terraform Registry
-
-See [PUBLISHING.md](./PUBLISHING.md) for step-by-step instructions.
-
-## License
-
-MIT

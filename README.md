@@ -32,13 +32,13 @@ terraform-aws-eks-app/
 
 ```hcl
 module "eks_app" {
-  source  = "YOUR_ORG/eks-app/aws"
+  source  = "tempestyash123456/eks-app/aws"
   version = "~> 1.0"
 
   cluster_name       = "my-cluster"
   aws_region         = "us-east-1"
-  app_image          = "123456789.dkr.ecr.us-east-1.amazonaws.com/myapp:v1"
-  app_container_port = 8080
+  app_image          = "nginx:latest"
+  app_container_port = 80
 }
 ```
 
@@ -46,7 +46,7 @@ module "eks_app" {
 
 ```hcl
 module "eks_app" {
-  source  = "YOUR_ORG/eks-app/aws"
+  source  = "tempestyash123456/eks-app/aws"
   version = "~> 1.0"
 
   # Required

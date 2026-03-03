@@ -1,0 +1,19 @@
+# Copy this file to terraform.tfvars and fill in your values.
+# Mandatory
+aws_region         = "us-east-1"
+cluster_name       = "my-eks-cluster"
+app_image          = "nginx:latest"
+app_container_port = 80
+
+# Optional (shown with defaults)
+# app_replicas       = 2
+# app_service_type   = "LoadBalancer"
+# app_namespace      = "default"
+# vpc_cidr           = "10.0.0.0/16"
+# availability_zones = ["us-east-1a", "us-east-1b"]
+# private_subnets    = ["10.0.1.0/24", "10.0.2.0/24"]
+# public_subnets     = ["10.0.3.0/24", "10.0.4.0/24"]
+# env                = "dev"
+# min_size           = 2
+# max_size           = 3
+# desired_size       = 2
